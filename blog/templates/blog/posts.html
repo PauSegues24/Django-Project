@@ -1,0 +1,10 @@
+{% load static %}
+
+<article class="post">
+  <h2>{{ post.title }}</h2>
+
+  <img src="{% static 'images/' %}{{ post.image_name }}" alt="{{ post.title }}" style="max-width: 100%; height: auto;">
+
+  <p>{{ post.excerpt }}</p>
+  <a href="{% url 'post-detail' post.slug %}">Llegir més</a>
+</article>

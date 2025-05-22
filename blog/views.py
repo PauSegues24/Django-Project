@@ -1,0 +1,19 @@
+from django.shortcuts import render, get_object_or_404
+from .models import Post
+
+# Create your views here.
+def starting_page(request):
+    posts = Post.objects.order_by("-date")
+    return render(request, "blog/index.html", {
+        "posts": posts,
+    })
+
+def posts(request):
+    posts = Post.objects.all().order_by("-date")
+    return render(request, "blog/all-posts.html", {
+        "posts": posts,
+    })
+
+def post_detail(request, slug):
+    post = get_object_or_404(Post, slug=slug)
+    return render(request, "blog/post_detail.html", {"post": post})

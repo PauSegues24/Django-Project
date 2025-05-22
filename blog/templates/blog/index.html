@@ -1,0 +1,31 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+
+{% block title %}
+    My Blog
+{% endblock %}
+
+{% block content %}
+
+    <section id="welcome">
+        <img src="{% static 'blog/images/im1.jpg' %}" alt="banner" class="img-fluid">
+        <h2>Benvingut al Blog PSV</h2>
+        <p>Aquest és el projecte d'aprenentatge basat en Django de Pau Segués Vitutia</p>
+    </section>
+
+    <section id="latest-posts">
+        {% for post in posts|slice:"3" %}
+            <article class="post">
+                <h2>{{ post.title }}</h2>
+                <p>{{ post.excerpt }}</p>
+                <a href="{% url 'post-detail' post.slug %}">Llegir més</a>
+            </article>
+        {% endfor %}
+    </section>
+
+    <section id="about">
+        
+    </section>
+
+
+{% endblock %}
