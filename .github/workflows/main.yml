@@ -54,15 +54,22 @@ jobs:
         publish_branch: gh-pages
 
     - name: Afegeix enllaç al README.md
-      run: |
+    run: |
         DOC_LINK="[📚 Documentació Pydoc](https://pausegues24.github.io/Django-Project/)"
-        if grep -q "Documentació Pydoc" README.md; then
-          sed -i "s|\\[.*Documentació Pydoc.*\\]|$DOC_LINK|" README.md
+        
+        # Si el README no existeix, crea'l amb l'enllaç
+        if [ ! -f README.md ]; then
+          echo -e "# Django Project\n\n$DOC_LINK" > README.md
         else
+          # Elimina qualsevol línia antiga relacionada amb el pydoc
+          sed -i '/Documentació Pydoc/d' README.md
+          # Afegeix l’enllaç al final només si no hi és
           echo -e "\n$DOC_LINK" >> README.md
         fi
+
+        # Fes commit només si hi ha canvis
         git config --global user.name "github-actions"
         git config --global user.email "github-actions@github.com"
         git add README.md
-        git commit -m "Afegit enllaç a la documentació al README" || echo "Sense canvis al README"
+        git diff --cached --quiet || git commit -m "Actualitzat README amb enllaç a la documentació"
         git push origin master
