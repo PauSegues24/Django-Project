@@ -1,0 +1,67 @@
+name: Projecte Django - Pau Segués Vitutia
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-doc:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Clona el repositori
+      uses: actions/checkout@v3
+
+    - name: Instal·la Python 3.11
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+
+    - name: Instal·la dependències manualment
+      run: |
+        python -m pip install --upgrade pip
+        pip install Django
+
+    - name: Aplica les migracions
+      run: |
+        python manage.py migrate
+
+    - name: Executa els tests
+      run: |
+        python manage.py test
+
+    - name: Genera documentació HTML amb Pydoc
+      run: |
+        mkdir -p docs
+        for file in $(find . -name "*.py" ! -path "./venv/*"); do
+          name=$(basename "$file" .py)
+          pydoc -w "$file"
+          mv "$name".html docs/
+        done
+
+    - name: Publica documentació a GitHub Pages (gh-pages)
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./docs
+        publish_branch: gh-pages
+
+    - name: Afegeix l'enllaç al README.md
+      run: |
+        DOC_LINK="[Documentació Pydoc](https://pausegues24.github.io/Django-Project/)"
+        if grep -q "Documentació Pydoc" README.md; then
+          sed -i "s|\\[.*Documentació Pydoc.*\\]|$DOC_LINK|" README.md
+        else
+          echo -e "\n$DOC_LINK" >> README.md
+        fi
+        git config --global user.name "github-actions"
+        git config --global user.email "github-actions@github.com"
+        git add README.md
+        git commit -m "Afegit enllaç a la documentació al README" || echo "Sense canvis al README"
+        git push origin main
