@@ -65,4 +65,4 @@ jobs:
         git config --global user.email "github-actions@github.com"
         git add README.md
         git commit -m "Afegit enllaç a la documentació al README" || echo "Sense canvis al README"
-        git push origin main
+        git push origin master
