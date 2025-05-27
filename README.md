@@ -55,4 +55,4 @@ Obre el navegador i ves a:
 ```
 http://127.0.0.1:8000/
 ```
-[📚 Documentació Pydoc](https://pausegues24.github.io/Django-Project/)
+[📚 Documentació Pydoc](https://pausegues24.github.io/Django-Project/)(https://pausegues24.github.io/Django-Project/)
