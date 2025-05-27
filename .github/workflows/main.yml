@@ -42,9 +42,17 @@ jobs:
         for file in $(find . -name "*.py" ! -path "./venv/*" ! -path "./*/migrations/*"); do
           module_path=$(echo "$file" | sed 's|./||' | sed 's|/|.|g' | sed 's|.py$||')
           echo "Generant doc per $module_path"
-          pydoc -w "$module_path" || echo "Error a $module_path, saltant..."
+          pydoc -w "$module_path" || echo "Error amb $module_path, saltant..."
         done
         mv ./*.html docs/ || true
+
+        # Crea index.html amb enllaços a tots els HTML generats
+        echo "<html><head><title>Documentació Pydoc</title></head><body><h1>📚 Documentació Pydoc</h1><ul>" > docs/index.html
+        for f in docs/*.html; do
+          fname=$(basename "$f")
+          echo "<li><a href=\"$fname\">$fname</a></li>" >> docs/index.html
+        done
+        echo "</ul></body></html>" >> docs/index.html
 
     - name: Publica documentació a GitHub Pages
       uses: peaceiris/actions-gh-pages@v3
