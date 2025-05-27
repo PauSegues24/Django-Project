@@ -53,8 +53,8 @@ jobs:
         publish_dir: ./docs
         publish_branch: gh-pages
 
-    - name: Afegeix enllaç al README.md
-    run: |
+    - name: Actualitza enllaç al README.md sense duplicats
+      run: |
         DOC_LINK="[📚 Documentació Pydoc](https://pausegues24.github.io/Django-Project/)"
         
         # Si el README no existeix, crea'l amb l'enllaç
@@ -73,3 +73,4 @@ jobs:
         git add README.md
         git diff --cached --quiet || git commit -m "Actualitzat README amb enllaç a la documentació"
         git push origin master
+
