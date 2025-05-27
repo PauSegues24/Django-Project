@@ -1,0 +1,27 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+
+{% block title %}
+    {{ author.firts_name}} {{ author.last_name }}
+{% endblock %}
+
+{% block content %}
+
+    <div class="title-div">
+        <h1>{{ author.first_name }} {{ author.last_name }}</h1>
+        <h2>Posts d'aquest autor:</h2>
+    </div>
+
+    <div class="posts-list-div">
+        {% for post in posts %}
+            <li><a href="{% url 'post-detail' post.slug %}">{{ post.title }}</a></li>
+        {% empty %}
+            <li>No hi ha cap post d'aquest autor.</li>
+        {% endfor %}
+    </div>
+
+    <div class="details-section">
+        <a href="{% url 'author_list' %}" class="button">Torna a la llista d'autors</a>
+    </div>
+    
+{% endblock %}

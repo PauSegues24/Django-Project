@@ -7,6 +7,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>{% block title %}{% endblock %}</title>
         <link rel="stylesheet" href="{% static 'blog/style.css' %}">
+        
     </head>
     <body>
         <div class="container">
@@ -17,9 +18,20 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'post_list' %}">POSTS</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'author_list' %}">AUTORS</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'tag_list' %}">TAGS</a>
+                </li>
             </ul>    
         </div>
         {% block content %}
         {% endblock %}
+        <footer class="footer">
+            <p class="footer-text">
+                Copyright &copy; 2025 - Pau Segués Vitutia
+            </p>
+        </footer>
     </body>
     </html>

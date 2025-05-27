@@ -1,0 +1,33 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+
+{% block title %}
+    Authors
+{% endblock %}
+
+{% block content %}
+
+    <div class="title-div">
+        <h1 class="title">Autors</h1>
+        <h2 class="subtitle"> Aquí trobaras la llista d'Autors</h2>
+    </div>
+
+    <table>
+        {% for author in authors %}
+            <tr>
+                <td>
+                    {{ author.first_name }} {{ author.last_name }}
+                </td>
+                <td>
+                    {{ author.email }}
+                </td>
+                <td>
+                    <a href="{% url 'author-detail' author.first_name author.last_name %}" class="button">
+                        Detalls de l'autor
+                    </a>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+    
+{% endblock %}

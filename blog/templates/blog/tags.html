@@ -1,0 +1,22 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+
+{% block title %}
+    Tags
+{% endblock %}
+
+{% block content %}
+
+    <div class="title-div">
+        <h1 class="title">Tags</h1>
+        <h2 class="subtitle"> Aquí trobaras la llista de Tags</h2>
+    </div>
+    
+    <div class="tags-list">
+        {% for tag in tags %}
+            <a href="{% url 'tag-detail' tag.tag %}" class="button">{{ tag.tag }}</a>    
+        {% endfor %}
+    </div>
+
+
+{% endblock %}

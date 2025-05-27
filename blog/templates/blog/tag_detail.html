@@ -1,0 +1,56 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+
+{% block title %}
+    {{ tag.tag }}
+{% endblock %}
+
+{% block content %}
+    <div class="title-div">
+        <h1>Posts amb el tag: {{ tag.tag }}</h1>
+    </div>
+    
+    <ul class="tag-list">
+    {% for post in posts %}
+        <li><a href="{% url 'post-detail' post.slug %}">{{ post.title }}</a></li>
+    {% empty %}
+        <li>No hi ha cap post amb aquest tag.</li>
+    {% endfor %}
+    </ul>
+
+    <div class="details-section">
+        <a href="{% url 'tag_list' %}" class="button">Tornar a la llista de tags</a>
+    </div>
+{% endblock %}
+
+
+<!--
+    .tag-list {
+    list-style: none;
+    padding: 0;
+    margin: 30px auto;
+    max-width: 500px;
+}
+
+tag-list li {
+    background: #f5f5f5;
+    margin-bottom: 12px;
+    border-radius: 6px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.07);
+    padding: 16px 20px;
+    text-align: center;
+    transition: background 0.2s;
+}
+
+tag-list li a {
+    text-decoration: none;
+    color: #2d3a4b;
+    font-weight: 500;
+    font-size: 1.1em;
+}
+
+tag-list li:hover {
+    background: #e0e7ef;
+}
+
+-->

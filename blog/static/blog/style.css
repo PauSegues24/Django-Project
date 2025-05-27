@@ -27,7 +27,6 @@ body {
 
 .nav-item:hover {
     background-color: #1b1b1b;
-    transform: scale(1.05);
 }
 
 .nav-link {
@@ -62,14 +61,173 @@ body {
     border-radius: 10px;
     padding: 20px;
     margin: 10px;
-    width: 30%;
+    width: 32%;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-
+    display: relative;
 }
 
 #posts-list {
     display: flex;
+    flex-wrap: wrap;              /* Permet que els elements baixin de línia */
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-start;      /* Millor alineació per a diverses files */
     flex-direction: row;
+}
+
+.footer {
+    background-color: rgb(197, 197, 197);
+    text-align: center;
+    font-weight: bold;
+    padding: 20px;
+    margin-top: 200px;
+}
+
+.title-div {
+    text-align: center;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+.title {
+    font-size: 40px;
+}
+
+.subtitle {
+    font-size: 25px;
+}
+
+.img-link {
+    width: auto;
+    height: 200px;    
+}
+
+.button {
+    background-color: #272727;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.button:hover {
+    background-color: #1b1b1b;
+    transform: scale(1.10);
+}
+
+.details-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 50px;
+}
+
+.date-author {
+    display: flex;
+    margin-bottom: 50px;
+
+}
+
+.date-author .date {
+    margin-right: 10px;
+}
+
+.post-title {
+    margin-bottom: 10px;
+}
+
+.img-post {
+    width: 100%;
+    height: auto;
+    margin-bottom: 20px;
+}
+
+.content-div {
+    margin-bottom: 30px;
+}
+
+.tag-div {
+    margin-bottom: 30px;
+}
+
+table {
+    margin-left: auto;
+    margin-right: auto;
+    border-collapse: collapse;
+    width: 30%;
+}
+
+td {
+    padding: 10px;
+    border: 1px solid #000000;
+    text-align: center;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.tags-list {
+    display: flex;
+    flex-wrap: wrap;              /* Permet que els elements baixin de línia */
+    justify-content: space-between;
+    align-items: flex-start;      /* Millor alineació per a diverses files */
+    flex-direction: row;
+    margin-left: 400px;
+    margin-right: 400px;
+}
+
+.tag-list {
+    list-style: none;
+    padding: 0;
+    margin: 30px auto;
+    max-width: 500px;
+}
+
+.tag-list li {
+    background: #f5f5f5;
+    margin-bottom: 12px;
+    border-radius: 6px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.07);
+    padding: 16px 20px;
+    text-align: center;
+    transition: background 0.2s;
+}
+
+.tag-list li a {
+    text-decoration: none;
+    color: #2d3a4b;
+    font-weight: 500;
+    font-size: 1.1em;
+}
+
+.tag-list li:hover {
+    background: #e0e7ef;
+}
+
+.posts-list-div {
+    list-style: none;
+    padding: 0;
+    margin: 30px auto;
+    max-width: 500px;
+}
+
+.posts-list-div li {
+    background: #f5f5f5;
+    margin-bottom: 12px;
+    border-radius: 6px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.07);
+    padding: 16px 20px;
+    text-align: center;
+    transition: background 0.2s;
+}
+
+.posts-list-div li a {
+    text-decoration: none;
+    color: #2d3a4b;
+    font-weight: 500;
+    font-size: 1.1em;
+}
+
+.posts-list-div li:hover {
+    background: #e0e7ef;
 }

@@ -18,7 +18,9 @@
             <article class="post">
                 <h2>{{ post.title }}</h2>
                 <p>{{ post.excerpt }}</p>
-                <a href="{% url 'post-detail' post.slug %}">Llegir més</a>
+                <p>{{ post.date|date:"d M Y" }}</p>
+                <img src="{% static 'blog/images/' %}{{ post.image_name }}" alt="{{ post.title }}" class="img-link">
+                <br><br><a href="{% url 'post-detail' post.slug %}" class="button">Llegir més</a>
             </article>
         {% endfor %}
     </section>

@@ -24,7 +24,7 @@ class Migration(migrations.Migration):
             name='Tag',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('caption', models.CharField(max_length=50)),
+                ('tag', models.CharField(max_length=50)),
             ],
         ),
         migrations.AddField(
