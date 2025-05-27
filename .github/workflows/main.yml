@@ -39,22 +39,23 @@ jobs:
     - name: Genera documentació HTML amb Pydoc
       run: |
         mkdir -p docs
-        for file in $(find . -name "*.py" ! -path "./venv/*"); do
-          name=$(basename "$file" .py)
-          pydoc -w "$file"
-          mv "$name".html docs/
+        for file in $(find . -name "*.py" ! -path "./venv/*" ! -path "./*/migrations/*"); do
+          module_path=$(echo "$file" | sed 's|./||' | sed 's|/|.|g' | sed 's|.py$||')
+          echo "Generant doc per $module_path"
+          pydoc -w "$module_path" || echo "Error a $module_path, saltant..."
         done
+        mv ./*.html docs/ || true
 
-    - name: Publica documentació a GitHub Pages (gh-pages)
+    - name: Publica documentació a GitHub Pages
       uses: peaceiris/actions-gh-pages@v3
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_dir: ./docs
         publish_branch: gh-pages
 
-    - name: Afegeix l'enllaç al README.md
+    - name: Afegeix enllaç al README.md
       run: |
-        DOC_LINK="[Documentació Pydoc](https://pausegues24.github.io/Django-Project/)"
+        DOC_LINK="[📚 Documentació Pydoc](https://pausegues24.github.io/Django-Project/)"
         if grep -q "Documentació Pydoc" README.md; then
           sed -i "s|\\[.*Documentació Pydoc.*\\]|$DOC_LINK|" README.md
         else
