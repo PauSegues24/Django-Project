@@ -39,14 +39,20 @@ jobs:
     - name: Genera documentació HTML amb Pydoc
       run: |
         mkdir -p docs
-        for file in $(find . -name "*.py" ! -path "./venv/*" ! -path "./*/migrations/*"); do
-          module_path=$(echo "$file" | sed 's|./||' | sed 's|/|.|g' | sed 's|.py$||')
-          echo "Generant doc per $module_path"
-          pydoc -w "$module_path" || echo "Error amb $module_path, saltant..."
+    
+        export PYTHONPATH=$(pwd)
+    
+        find . -name "*.py" ! -path "./venv/*" ! -path "./*/migrations/*" | while read file; do
+          # Només processa si hi ha __init__.py al directori (indica que és un paquet)
+          if grep -q '__init__.py' <<< "$file" || [[ $(dirname "$file") == "." ]]; then
+            module_path=$(echo "$file" | sed 's|^\./||' | sed 's|/|.|g' | sed 's|.py$||')
+            echo "Generant doc per $module_path"
+            pydoc -w "$module_path" || echo "Error amb $module_path, saltant..."
+          fi
         done
+    
         mv ./*.html docs/ || true
-
-        # Crea index.html amb enllaços a tots els HTML generats
+    
         echo "<html><head><title>Documentació Pydoc</title></head><body><h1>📚 Documentació Pydoc</h1><ul>" > docs/index.html
         for f in docs/*.html; do
           fname=$(basename "$f")
